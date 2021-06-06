@@ -12,7 +12,7 @@ public class HelloController {
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public ModelAndView index(ModelAndView mv){
         mv.setViewName("index");
-        mv.addObject("msg","이름을 적어서 전송해주세요.");
+        //mv.addObject("msg","이름을 적어서 전송해주세요.");
         return mv;
     }
 
