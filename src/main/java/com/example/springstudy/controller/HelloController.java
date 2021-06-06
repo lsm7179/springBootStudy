@@ -2,24 +2,26 @@ package com.example.springstudy.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class HelloController {
 
 
-    @RequestMapping("/{num}")
-    public ModelAndView index(@PathVariable int num, ModelAndView mv){
-        int res=0;
-        for(int i=0;i<=num;i++)
-            res+=i;
-        mv.addObject("msg","total: "+res);
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+    public ModelAndView index(ModelAndView mv){
         mv.setViewName("index");
+        mv.addObject("msg","이름을 적어서 전송해주세요.");
         return mv;
     }
 
+    @RequestMapping(value="/", method = RequestMethod.POST)
+    public ModelAndView send(@RequestParam("text1")String name, ModelAndView mav){
+        mav.addObject("msg","안녕하세요 "+name+" 님!");
+        mav.addObject("value",name);
+        mav.setViewName("index");
+        return mav;
+    }
 
 }
