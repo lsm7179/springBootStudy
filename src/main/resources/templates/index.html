@@ -15,7 +15,7 @@
 <body>
     <h1 th:text="#{content.title}">Helo page</h1>
     <table>
-        <form method="post" action="/" th:oject="${formModel}">
+        <form method="post" action="/" th:object="${formModel}">
             <tr>
                 <td><label>이름</label></td>
                 <td><input type="text" name="name" th:value="*{name}"/></td>

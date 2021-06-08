@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import javax.annotation.PostConstruct;
+import java.util.Optional;
 
 @Controller
 public class HelloController {
@@ -51,6 +52,22 @@ public class HelloController {
     @RequestMapping(value = "/", method=RequestMethod.POST)
     @Transactional(readOnly = false)
     public ModelAndView form(@ModelAttribute("formModel") MyData myData, ModelAndView mav){
+        repository.saveAndFlush(myData);
+        return new ModelAndView("redirect:/");
+    }
+
+    @RequestMapping(value = "/edit/{id}", method=RequestMethod.GET)
+    public ModelAndView edit(@ModelAttribute MyData myData,@PathVariable int id,ModelAndView mav){
+        mav.setViewName("edit");
+        mav.addObject("title","edit mydata. ");
+        MyData data=repository.findById((long)id).get();
+        mav.addObject("formModel",data);
+        return mav;
+    }
+
+    @RequestMapping(value = "/edit", method=RequestMethod.POST)
+    @Transactional(readOnly = false)
+    public ModelAndView update(@ModelAttribute MyData myData, ModelAndView mav){
         repository.saveAndFlush(myData);
         return new ModelAndView("redirect:/");
     }
