@@ -72,6 +72,22 @@ public class HelloController {
         return new ModelAndView("redirect:/");
     }
 
+    @RequestMapping(value="/delete/{id}",method = RequestMethod.GET)
+    public ModelAndView delete(@PathVariable int id, ModelAndView mav){
+        mav.setViewName("delete");
+        mav.addObject("title","delete mydata.");
+        MyData data=repository.findById((long)id).get();
+        mav.addObject("formModel",data);
+        return mav;
+    }
+
+    @RequestMapping(value="/delete", method = RequestMethod.POST)
+    @Transactional(readOnly = false)
+    public ModelAndView remove(@RequestParam long id,ModelAndView mav){
+        repository.deleteById(id);
+        return new ModelAndView("redirect:/");
+    }
+
     /*@RequestMapping(value="/", method = RequestMethod.POST)
     public ModelAndView send(@RequestParam("text1")String name, ModelAndView mav){
         mav.addObject("msg","안녕하세요 "+name+" 님!");
