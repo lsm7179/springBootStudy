@@ -5,6 +5,8 @@ import com.example.springstudy.repositories.MyDataRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import javax.annotation.PostConstruct;
@@ -44,6 +46,7 @@ public class HelloController {
     public ModelAndView index(@ModelAttribute("formModel") MyData myData,ModelAndView mv){
         mv.setViewName("index");
         mv.addObject("msg","this is sample content.");
+        mv.addObject("formModel",myData);
         Iterable<MyData> list = repository.findAll();
         mv.addObject("datalist",list);
         return mv;
@@ -51,9 +54,19 @@ public class HelloController {
 
     @RequestMapping(value = "/", method=RequestMethod.POST)
     @Transactional(readOnly = false)
-    public ModelAndView form(@ModelAttribute("formModel") MyData myData, ModelAndView mav){
-        repository.saveAndFlush(myData);
-        return new ModelAndView("redirect:/");
+    public ModelAndView form(@ModelAttribute("formModel") @Validated MyData myData, BindingResult result, ModelAndView mav){
+        ModelAndView res = null;
+        if(!result.hasErrors()){
+            repository.saveAndFlush(myData);
+            res=new ModelAndView("redirect:/");
+        }else{
+            mav.setViewName("index");
+            mav.addObject("msg","sorry, error is occured...");
+            Iterable<MyData> list=repository.findAll();
+            mav.addObject("datalist",list);
+            res=mav;
+        }
+        return res;
     }
 
     @RequestMapping(value = "/edit/{id}", method=RequestMethod.GET)
