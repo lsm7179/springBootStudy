@@ -24,21 +24,21 @@ public class HelloController {
         md.setName("lee");
         md.setAge(30);
         md.setMail("sml@test.com");
-        md.setMemo("this is init Data");
+        md.setMemo("01011112222");
         repository.saveAndFlush(md);
 
         MyData md2=new MyData();
         md2.setName("kim");
         md2.setAge(40);
         md2.setMail("kim@test.com");
-        md2.setMemo("this is init Data2");
+        md2.setMemo("01011112223");
         repository.saveAndFlush(md2);
 
         MyData md3=new MyData();
         md3.setName("park");
         md3.setAge(20);
         md3.setMail("park@test.com");
-        md3.setMemo("this is init Data3");
+        md3.setMemo("01011112224");
         repository.saveAndFlush(md3);
     }
 

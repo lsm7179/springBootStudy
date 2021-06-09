@@ -41,7 +41,9 @@
             </tr>
             <tr>
                 <td><label>메모</label></td>
-                <td><textarea name="memo" th:text="*{memo}" cols="20" rows="5"></textarea></td>
+                <td><textarea name="memo" th:text="*{memo}" cols="20" rows="5"></textarea>
+                    <div th:if="${#fields.hasErrors('memo')}" th:errors="*{memo}" th:errorclass="err"></div>
+                </td>
             </tr>
             <tr><td></td><td><input type="submit"/></td></tr>
         </form>
