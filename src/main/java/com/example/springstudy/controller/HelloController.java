@@ -1,6 +1,7 @@
 package com.example.springstudy.controller;
 
 import com.example.springstudy.MyData;
+import com.example.springstudy.dao.MyDataDaoImpl;
 import com.example.springstudy.repositories.MyDataRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,6 +11,8 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import javax.annotation.PostConstruct;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.Optional;
 
 @Controller
@@ -18,8 +21,14 @@ public class HelloController {
     @Autowired
     MyDataRepository repository;
 
+    @PersistenceContext
+    EntityManager entityManager;
+
+    MyDataDaoImpl dao;
+
     @PostConstruct
     public void init(){
+        dao=new MyDataDaoImpl(entityManager);
         MyData md=new MyData();
         md.setName("lee");
         md.setAge(30);
@@ -40,6 +49,15 @@ public class HelloController {
         md3.setMail("park@test.com");
         md3.setMemo("01011112224");
         repository.saveAndFlush(md3);
+    }
+
+    @RequestMapping(value = "/list", method = RequestMethod.GET)
+    public ModelAndView index(ModelAndView mav){
+        mav.setViewName("list/index");
+        mav.addObject("msg","MyData의 예제입니다.");
+        Iterable<MyData> list = dao.getAll();
+        mav.addObject("datalist",list);
+        return mav;
     }
 
     @RequestMapping(value = "/", method=RequestMethod.GET)
