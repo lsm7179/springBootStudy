@@ -41,11 +41,11 @@ public class MyDataDaoImpl implements MyDataDao<MyData> {
     @Override
     public List<MyData> find(String fstr) {
         List<MyData> list =null;
-        String qstr="select a from MyData a where a.id = :fid or a.name like :fname or a.mail like : fmail ";
+        String qstr="select a from MyData a where a.id = ?1 or a.name like ?2 or a.mail like ?3 ";
         Long fid=0L;
-        Query query=entityManager.createQuery(qstr).setParameter("fid",fid)
-                .setParameter("fname", "%"+fstr+"%")
-                .setParameter("fmail",fstr+"@%");
+        Query query=entityManager.createQuery(qstr).setParameter(1,fid)
+                .setParameter(2, "%"+fstr+"%")
+                .setParameter(3,fstr+"@%");
         list=query.getResultList();
         return list;
     }
