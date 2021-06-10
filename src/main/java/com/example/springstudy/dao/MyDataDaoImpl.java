@@ -43,9 +43,10 @@ public class MyDataDaoImpl implements MyDataDao<MyData> {
         List<MyData> list =null;
         String qstr="select a from MyData a where a.id = ?1 or a.name like ?2 or a.mail like ?3 ";
         Long fid=0L;
-        Query query=entityManager.createQuery(qstr).setParameter(1,fid)
+        /*Query query=entityManager.createQuery(qstr).setParameter(1,fid)
                 .setParameter(2, "%"+fstr+"%")
-                .setParameter(3,fstr+"@%");
+                .setParameter(3,fstr+"@%");*/
+        Query query=entityManager.createNamedQuery("findWithName").setParameter("fname","%"+fstr+"%");
         list=query.getResultList();
         return list;
     }

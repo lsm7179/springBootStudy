@@ -5,6 +5,16 @@ package com.example.springstudy;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 
+/*@NamedQuery(
+        name = "findWithName",
+        query = "select a from MyData a where a.name like :fname"
+)*/
+@NamedQueries(
+        @NamedQuery(
+                name="findWithName",
+                query = "select a from MyData a where a.name like :fname"
+        )
+)
 @Entity
 @Table(name="mydata")
 public class MyData {
@@ -31,6 +41,8 @@ public class MyData {
     @Column(nullable = true)
     @Phone(onlyNumber = true)
     private String memo;
+
+
 
     public long getId() {
         return id;
