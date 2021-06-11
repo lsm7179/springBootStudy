@@ -1,6 +1,8 @@
-package com.example.springstudy;
+package com.example.springstudy.data;
 
 
+
+import com.example.springstudy.Phone;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;

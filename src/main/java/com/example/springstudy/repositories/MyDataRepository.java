@@ -1,6 +1,6 @@
 package com.example.springstudy.repositories;
 
-import com.example.springstudy.MyData;
+import com.example.springstudy.data.MyData;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

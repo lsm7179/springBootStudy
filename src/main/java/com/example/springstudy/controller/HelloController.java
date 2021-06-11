@@ -1,6 +1,6 @@
 package com.example.springstudy.controller;
 
-import com.example.springstudy.MyData;
+import com.example.springstudy.data.MyData;
 import com.example.springstudy.dao.MyDataDaoImpl;
 import com.example.springstudy.repositories.MyDataRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +15,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 public class HelloController {

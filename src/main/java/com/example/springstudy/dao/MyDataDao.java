@@ -1,6 +1,6 @@
 package com.example.springstudy.dao;
 
-import com.example.springstudy.MyData;
+import com.example.springstudy.data.MyData;
 
 import java.io.Serializable;
 import java.util.List;

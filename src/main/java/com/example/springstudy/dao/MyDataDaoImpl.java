@@ -1,6 +1,6 @@
 package com.example.springstudy.dao;
 
-import com.example.springstudy.MyData;
+import com.example.springstudy.data.MyData;
 
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.*;
