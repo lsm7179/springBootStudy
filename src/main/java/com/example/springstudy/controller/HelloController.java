@@ -74,7 +74,7 @@ public class HelloController {
             mav.addObject("title","Find result");
             mav.addObject("msg",param+" 의 검색 결과");
             mav.addObject("value",param);
-            List<MyData> list =dao.find(param);
+            List<MyData> list =dao.cfind(param);
             mav.addObject("datalist",list);
         }
         return mav;
@@ -84,7 +84,8 @@ public class HelloController {
     public ModelAndView index(ModelAndView mav){
         mav.setViewName("list/index");
         mav.addObject("msg","MyData의 예제입니다.");
-        Iterable<MyData> list = dao.getAll();
+        //Iterable<MyData> list = dao.getAll();
+        Iterable<MyData> list = repository.findAllOderByName();
         mav.addObject("datalist",list);
         return mav;
     }
