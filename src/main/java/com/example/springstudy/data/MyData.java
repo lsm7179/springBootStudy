@@ -6,6 +6,7 @@ import com.example.springstudy.Phone;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
+import java.util.List;
 
 /*@NamedQuery(
         name = "findWithName",
@@ -27,8 +28,20 @@ import javax.validation.constraints.*;
 @Table(name="mydata")
 public class MyData {
 
+    @OneToMany(cascade = CascadeType.ALL)
+    @Column(nullable = true)
+    private List<MsgData> msgdatas;
+
+    public List<MsgData> getMsgdatas() {
+        return msgdatas;
+    }
+
+    public void setMsgdatas(List<MsgData> msgdatas) {
+        this.msgdatas = msgdatas;
+    }
+
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
     @NotNull
     private long id;
