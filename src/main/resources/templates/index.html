@@ -50,10 +50,13 @@
     </table>
     <hr/>
     <table>
-        <tr><th>ID</th><th>이름</th></tr>
+        <tr><th>ID</th><th>이름</th><th>메일</th><th>연령</th><th>메모</th></tr>
         <tr th:each="obj : ${datalist}">
             <td th:text="${obj.id}"></td>
             <td th:text="${obj.name}"></td>
+            <td th:text="${obj.mail}"></td>
+            <td th:text="${obj.age}"></td>
+            <td th:text="${obj.memo}"></td>
         </tr>
     </table>
 </body>

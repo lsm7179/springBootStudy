@@ -8,6 +8,7 @@ import com.example.springstudy.service.MyDataService;
 import com.sun.org.apache.xpath.internal.operations.Mod;
 import jdk.internal.icu.text.NormalizerBase;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
@@ -60,6 +61,17 @@ public class HelloController {
         md3.setMail("park@test.com");
         md3.setMemo("01011112224");
         repository.saveAndFlush(md3);
+    }
+
+    @RequestMapping(value = "/page/{num}", method = RequestMethod.GET)
+    public ModelAndView page(@PathVariable Integer num, ModelAndView mav){
+        Page<MyData> page=service.getMyDataInPage(num);
+        mav.setViewName("page");
+        mav.addObject("title","Find page");
+        mav.addObject("msg","MyData의 예제입니다.");
+        mav.addObject("pagenumber",num);
+        mav.addObject("datalist",page);
+        return mav;
     }
 
     @RequestMapping(value = "/{id}",method = RequestMethod.GET)
