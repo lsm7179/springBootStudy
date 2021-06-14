@@ -3,6 +3,7 @@ package com.example.springstudy.controller;
 import com.example.springstudy.data.MyData;
 import com.example.springstudy.dao.MyDataDaoImpl;
 import com.example.springstudy.repositories.MyDataRepository;
+import com.example.springstudy.service.MyDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,6 +25,9 @@ public class HelloController {
 
     @PersistenceContext
     EntityManager entityManager;
+
+    @Autowired
+    private MyDataService service;
 
     MyDataDaoImpl dao;
 
@@ -58,7 +62,7 @@ public class HelloController {
         mav.addObject("title","Find Page");
         mav.addObject("msg","MyData의 예제입니다.");
         mav.addObject("value","");
-        Iterable<MyData> list = dao.getAll();
+        Iterable<MyData> list = service.getAll();
         mav.addObject("datalist",list);
         return mav;
     }
@@ -73,7 +77,7 @@ public class HelloController {
             mav.addObject("title","Find result");
             mav.addObject("msg",param+" 의 검색 결과");
             mav.addObject("value",param);
-            List<MyData> list =dao.find(param);
+            List<MyData> list =service.find(param);
             mav.addObject("datalist",list);
         }
         return mav;
@@ -83,8 +87,8 @@ public class HelloController {
     public ModelAndView index(ModelAndView mav){
         mav.setViewName("list/index");
         mav.addObject("msg","MyData의 예제입니다.");
-        //Iterable<MyData> list = dao.getAll();
-        Iterable<MyData> list = repository.findAllOderByName();
+        Iterable<MyData> list = service.getAll();
+        //Iterable<MyData> list = repository.findAllOderByName();
         mav.addObject("datalist",list);
         return mav;
     }
