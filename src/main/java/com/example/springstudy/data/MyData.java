@@ -22,6 +22,7 @@ import java.util.List;
             name="findByAge",
             query = "select a from MyData a where a.age > : min and a.age < : max"
         )
+
     }
 )
 @Entity

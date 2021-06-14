@@ -1,9 +1,12 @@
 package com.example.springstudy.controller;
 
+import com.example.springstudy.component.MyDataBean;
 import com.example.springstudy.data.MyData;
 import com.example.springstudy.dao.MyDataDaoImpl;
 import com.example.springstudy.repositories.MyDataRepository;
 import com.example.springstudy.service.MyDataService;
+import com.sun.org.apache.xpath.internal.operations.Mod;
+import jdk.internal.icu.text.NormalizerBase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,6 +31,9 @@ public class HelloController {
 
     @Autowired
     private MyDataService service;
+
+    @Autowired
+    MyDataBean bean;
 
     MyDataDaoImpl dao;
 
@@ -54,6 +60,18 @@ public class HelloController {
         md3.setMail("park@test.com");
         md3.setMemo("01011112224");
         repository.saveAndFlush(md3);
+    }
+
+    @RequestMapping(value = "/{id}",method = RequestMethod.GET)
+    public ModelAndView indexByID(@PathVariable long id, ModelAndView mav){
+        mav.setViewName("pickup");
+        mav.addObject("title","Pickup page");
+        String table="<table>"+
+            bean.getTableTagById(id)+
+            "<table>";
+        mav.addObject("msg","pickup data id = "+id);
+        mav.addObject("data", table);
+        return mav;
     }
 
     @RequestMapping(value = "/find", method = RequestMethod.GET)

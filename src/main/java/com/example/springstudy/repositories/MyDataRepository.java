@@ -18,4 +18,7 @@ public interface MyDataRepository extends JpaRepository<MyData,Long> {
 
     @Query("from MyData where age > : min and age < : max ")
     public List<MyData> findByAge(@Param("min") int min,@Param("max") int max);
+
+    /*@Query("from MyData where id = :id")
+    MyData findOne(long id);*/
 }
