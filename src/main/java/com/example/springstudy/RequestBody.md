@@ -20,3 +20,6 @@ public class TestController {
 }
 ~~~
 해당 Controller에서는 이렇게 맵핑하여 사용하면 된다.
+
+또한 Web Application의 구조상 @RequestBody는 Single Object만을 처리할 수 있도록 되어 있기 때문에 여러개의 @RequestBody를 선언하는 것은 불가능하다.
+
